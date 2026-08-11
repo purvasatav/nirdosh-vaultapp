@@ -14,7 +14,6 @@ import SchemeReadiness from './pages/SchemeReadiness';
 import NearbyCentres from './pages/NearbyCentres';
 import Settings from './pages/Settings';
 import Navbar from './components/Navbar';
-import { LanguageSwitcher } from './components/LanguageSwitcher';
 import OcrReadyToast from './components/OcrReadyToast';
 
 const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
@@ -39,7 +38,6 @@ function App() {
       <div id="app">
         <a className="skip-link" href="#main-content">Skip to main content</a>
         <Navbar />
-        <LanguageSwitcher />
         <OcrReadyToast />
         <main id="main-content" tabIndex={-1}>
           <Routes>
