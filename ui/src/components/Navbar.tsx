@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+﻿import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useAuthStore } from '../store/auth';
 import { LogOut, Settings, Moon, Sun, Menu, X } from 'lucide-react';
 import { useDarkMode } from '../store/darkMode';
+import { T } from '../i18n/AutoTranslate';
 
 export default function Navbar() {
   const { user, logout } = useAuthStore();
@@ -32,7 +33,7 @@ export default function Navbar() {
 
       {/* Desktop nav */}
       <div className="hidden md:flex items-center gap-1">
-        {links.map(l => <NavLink key={l.to} to={l.to}>{l.label}</NavLink>)}
+        {links.map(l => <NavLink key={l.to} to={l.to}><T>{l.label}</T></NavLink>)}
       </div>
 
       {/* Right controls */}
@@ -97,15 +98,15 @@ export default function Navbar() {
                   : 'text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-white/10'
               }`}
             >
-              {l.label}
+              <T>{l.label}</T>
             </Link>
           ))}
           <Link to="/settings" onClick={() => setMenuOpen(false)} className="px-4 py-3 rounded-xl text-sm font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-white/10 flex items-center gap-2">
-            <Settings size={14} /> Settings
+            <Settings size={14} /> <T>Settings</T>
           </Link>
           {user && (
             <button onClick={() => { logout(); setMenuOpen(false); }} className="px-4 py-3 rounded-xl text-sm font-medium text-red-400 hover:bg-red-500/10 flex items-center gap-2 text-left">
-              <LogOut size={14} /> Sign Out
+              <LogOut size={14} /> <T>Sign Out</T>
             </button>
           )}
         </div>

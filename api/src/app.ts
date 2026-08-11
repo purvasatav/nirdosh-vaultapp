@@ -1,4 +1,4 @@
-import express from 'express';
+﻿import express from 'express';
 import cors from 'cors';
 import helmet from 'helmet';
 import morgan from 'morgan';
@@ -20,7 +20,7 @@ if (config.nodeEnv === 'production') {
   app.set('trust proxy', 1);
 }
 
-// ─── Security Headers ─────────────────────────────────────────────
+// â”€â”€â”€ Security Headers â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 app.use(
   helmet({
     contentSecurityPolicy: {
@@ -36,7 +36,7 @@ app.use(
   })
 );
 
-// ─── CORS ─────────────────────────────────────────────────────────
+// â”€â”€â”€ CORS â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 app.use(
   cors({
     origin: config.cors.origin,
@@ -44,11 +44,11 @@ app.use(
   })
 );
 
-// ─── Body Parsers ─────────────────────────────────────────────────
+// â”€â”€â”€ Body Parsers â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// ─── HTTP Request Logging ─────────────────────────────────────────
+// â”€â”€â”€ HTTP Request Logging â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 app.use(
   morgan(
     '[:date[iso]] :method :url :status :res[content-length] - :response-time ms',
@@ -60,7 +60,7 @@ app.use(
   )
 );
 
-// ─── Rate Limiters ────────────────────────────────────────────────
+// â”€â”€â”€ Rate Limiters â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 const authLimiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
   max: config.nodeEnv === 'production' ? 20 : 200,
@@ -95,10 +95,10 @@ const analysisLimiter = rateLimit({
   },
 });
 
-// ─── Static Uploads ───────────────────────────────────────────────
+// â”€â”€â”€ Static Uploads â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 app.use('/uploads', express.static(config.upload.dir));
 
-// ─── Healthcheck ──────────────────────────────────────────────────
+// â”€â”€â”€ Healthcheck â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 app.get('/health', (_req, res) => {
   res.json({
     status: 'ok',
@@ -106,7 +106,7 @@ app.get('/health', (_req, res) => {
   });
 });
 
-// ─── System Status (OCR readiness) ───────────────────────────────
+// â”€â”€â”€ System Status (OCR readiness) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 app.get('/api/v1/status', (_req, res) => {
   res.json({
     geminiConfigured: Boolean(config.gemini.apiKey),
@@ -118,22 +118,30 @@ app.get('/api/v1/status', (_req, res) => {
   });
 });
 
-// ─── Routes ───────────────────────────────────────────────────────
+// â”€â”€â”€ Routes â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 app.use('/api/v1/auth', authLimiter, authRoutes);
 app.use('/api/v1/documents', uploadLimiter, documentRoutes);
 app.use('/api/v1/analysis', analysisLimiter, analysisRoutes);
 app.use('/api/v1/samples', samplesRoutes);
 app.use('/api/v1/centres', centresRoutes);
-app.use('/api/v1/translate', translateRoutes);
+const translateLimiter = rateLimit({
+  windowMs: 60 * 1000,
+  max: config.nodeEnv === 'production' ? 60 : 300,
+  standardHeaders: true,
+  legacyHeaders: false,
+  message: { error: 'Too many translation requests. Please slow down.' },
+});
 
-// ─── 404 Handler ──────────────────────────────────────────────────
+app.use('/api/v1/translate', translateLimiter, translateRoutes);
+
+// â”€â”€â”€ 404 Handler â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 app.use((_req, res) => {
   res.status(404).json({
     error: 'Route not found',
   });
 });
 
-// ─── Error Handler ────────────────────────────────────────────────
+// â”€â”€â”€ Error Handler â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 app.use(
   (
     err: any,
