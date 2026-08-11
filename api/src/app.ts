@@ -10,6 +10,7 @@ import documentRoutes from './routes/documents';
 import analysisRoutes from './routes/analysis';
 import samplesRoutes from './routes/samples';
 import centresRoutes from './routes/centres';
+import translateRoutes from './routes/translate';
 import { paddleOCR } from './services/extractionService';
 import logger from './services/logger';
 
@@ -123,6 +124,7 @@ app.use('/api/v1/documents', uploadLimiter, documentRoutes);
 app.use('/api/v1/analysis', analysisLimiter, analysisRoutes);
 app.use('/api/v1/samples', samplesRoutes);
 app.use('/api/v1/centres', centresRoutes);
+app.use('/api/v1/translate', translateRoutes);
 
 // ─── 404 Handler ──────────────────────────────────────────────────
 app.use((_req, res) => {
