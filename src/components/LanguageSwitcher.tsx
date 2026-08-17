@@ -27,9 +27,8 @@ export function LanguageSwitcher() {
       ref={ref}
       style={{
         position: "fixed",
-        top: "50%",
+        top: "50vh",
         right: "16px",
-        transform: "translateY(-50%)",
         zIndex: 9999,
       }}
     >
