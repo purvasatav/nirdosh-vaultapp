@@ -1,4 +1,4 @@
-﻿import React, { useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { useAuthStore } from './store/auth';
 import api from './api/client';
@@ -14,13 +14,16 @@ import SchemeReadiness from './pages/SchemeReadiness';
 import NearbyCentres from './pages/NearbyCentres';
 import Settings from './pages/Settings';
 import Navbar from './components/Navbar';
-import { LanguageSwitcher } from './components/LanguageSwitcher';
 import OcrReadyToast from './components/OcrReadyToast';
 import { AutoTranslateProvider } from './i18n/AutoTranslate';
 
 const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
   const token = useAuthStore(state => state.token);
-  if (!token) return <Navigate to="/auth" replace />;
+
+  if (!token) {
+    return <Navigate to="/auth" replace />;
+  }
+
   return <>{children}</>;
 };
 
@@ -39,26 +42,115 @@ function App() {
     <Router>
       <AutoTranslateProvider>
         <div id="app">
-          <a className="skip-link" href="#main-content">Skip to main content</a>
-          <Navbar />
-          <LanguageSwitcher />
-          <OcrReadyToast />
-          <main id="main-content" tabIndex={-1}>
-            <Routes>
-            <Route path="/" element={<Landing />} />
-            <Route path="/auth" element={<Auth />} />
+          <a
+            className="skip-link"
+            href="#main-content"
+          >
+            Skip to main content
+          </a>
 
-            <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
-            <Route path="/upload" element={<ProtectedRoute><Upload /></ProtectedRoute>} />
-            <Route path="/report/:id" element={<ProtectedRoute><Report /></ProtectedRoute>} />
-            <Route path="/report" element={<ProtectedRoute><Report /></ProtectedRoute>} />
-            <Route path="/guidance/:id" element={<ProtectedRoute><Guidance /></ProtectedRoute>} />
-            <Route path="/schemes" element={<ProtectedRoute><SchemeFinder /></ProtectedRoute>} />
-            <Route path="/schemes/readiness" element={<ProtectedRoute><SchemeReadiness /></ProtectedRoute>} />
-            <Route path="/centres" element={<ProtectedRoute><NearbyCentres /></ProtectedRoute>} />
-            <Route path="/centres/:analysisId" element={<ProtectedRoute><NearbyCentres /></ProtectedRoute>} />
-            <Route path="/settings" element={<ProtectedRoute><Settings /></ProtectedRoute>} />
-          </Routes>
+          <Navbar />
+
+          <OcrReadyToast />
+
+          <main
+            id="main-content"
+            tabIndex={-1}
+          >
+            <Routes>
+              <Route path="/" element={<Landing />} />
+              <Route path="/auth" element={<Auth />} />
+
+              <Route
+                path="/dashboard"
+                element={
+                  <ProtectedRoute>
+                    <Dashboard />
+                  </ProtectedRoute>
+                }
+              />
+
+              <Route
+                path="/upload"
+                element={
+                  <ProtectedRoute>
+                    <Upload />
+                  </ProtectedRoute>
+                }
+              />
+
+              <Route
+                path="/report/:id"
+                element={
+                  <ProtectedRoute>
+                    <Report />
+                  </ProtectedRoute>
+                }
+              />
+
+              <Route
+                path="/report"
+                element={
+                  <ProtectedRoute>
+                    <Report />
+                  </ProtectedRoute>
+                }
+              />
+
+              <Route
+                path="/guidance/:id"
+                element={
+                  <ProtectedRoute>
+                    <Guidance />
+                  </ProtectedRoute>
+                }
+              />
+
+              <Route
+                path="/schemes"
+                element={
+                  <ProtectedRoute>
+                    <SchemeFinder />
+                  </ProtectedRoute>
+                }
+              />
+
+              <Route
+                path="/schemes/readiness"
+                element={
+                  <ProtectedRoute>
+                    <SchemeReadiness />
+                  </ProtectedRoute>
+                }
+              />
+
+              <Route
+                path="/centres"
+                element={
+                  <ProtectedRoute>
+                    <NearbyCentres />
+                  </ProtectedRoute>
+                }
+              />
+
+              <Route
+                path="/centres/:analysisId"
+                element={
+                  <ProtectedRoute>
+                    <NearbyCentres />
+                  </ProtectedRoute>
+                }
+              />
+
+              <Route
+                path="/settings"
+                element={
+                  <ProtectedRoute>
+                    <Settings />
+                  </ProtectedRoute>
+                }
+              />
+            </Routes>
           </main>
         </div>
       </AutoTranslateProvider>
