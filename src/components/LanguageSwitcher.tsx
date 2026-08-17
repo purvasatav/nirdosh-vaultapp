@@ -1,4 +1,4 @@
-﻿import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useLanguage, LANGUAGES } from "../store/language";
 
 export function LanguageSwitcher() {
@@ -12,8 +12,12 @@ export function LanguageSwitcher() {
         setOpen(false);
       }
     }
+
     document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
   }, []);
 
   const current = LANGUAGES.find((l) => l.code === lang);
@@ -23,11 +27,13 @@ export function LanguageSwitcher() {
       ref={ref}
       style={{
         position: "fixed",
-        top: "16px",
+        top: "50%",
         right: "16px",
+        transform: "translateY(-50%)",
         zIndex: 9999,
       }}
     >
+      {/* Language Button */}
       <button
         onClick={() => setOpen((o) => !o)}
         aria-label="Choose language"
@@ -44,10 +50,14 @@ export function LanguageSwitcher() {
           fontSize: "14px",
         }}
       >
-        <span role="img" aria-hidden="true">🌐</span>
+        <span role="img" aria-hidden="true">
+          🌐
+        </span>
+
         <span>{current?.label ?? "EN"}</span>
       </button>
 
+      {/* Language Dropdown */}
       {open && (
         <div
           style={{
@@ -73,7 +83,10 @@ export function LanguageSwitcher() {
                 padding: "10px 14px",
                 cursor: "pointer",
                 color: l.code === lang ? "#4ade80" : "#fff",
-                background: l.code === lang ? "rgba(74,222,128,0.1)" : "transparent",
+                background:
+                  l.code === lang
+                    ? "rgba(74,222,128,0.1)"
+                    : "transparent",
                 fontSize: "14px",
               }}
             >
