@@ -23,75 +23,47 @@ export function LanguageSwitcher() {
   const current = LANGUAGES.find((l) => l.code === lang);
 
   return (
-    <div
-      ref={ref}
-      style={{
-        position: "fixed",
-        top: "50%",
-        right: "16px",
-        transform: "translateY(-50%)",
-        zIndex: 9999,
-      }}
-    >
-      {/* Language Button */}
+    <div ref={ref} className="relative">
       <button
+        type="button"
         onClick={() => setOpen((o) => !o)}
         aria-label="Choose language"
-        style={{
-          display: "flex",
-          alignItems: "center",
-          gap: "6px",
-          padding: "8px 12px",
-          borderRadius: "999px",
-          border: "1px solid rgba(255,255,255,0.2)",
-          background: "rgba(0,0,0,0.6)",
-          color: "#fff",
-          cursor: "pointer",
-          fontSize: "14px",
-        }}
+        aria-expanded={open}
+        className="h-8 px-2.5 rounded-lg flex items-center justify-center gap-1.5
+                   text-slate-500 dark:text-slate-300
+                   hover:bg-slate-100 dark:hover:bg-white/10
+                   transition-colors text-sm"
       >
         <span role="img" aria-hidden="true">
           🌐
         </span>
 
-        <span>{current?.label ?? "EN"}</span>
+        <span>{current?.label ?? "English"}</span>
       </button>
 
-      {/* Language Dropdown */}
       {open && (
         <div
-          style={{
-            position: "absolute",
-            top: "44px",
-            right: 0,
-            background: "#1a1a1a",
-            border: "1px solid rgba(255,255,255,0.15)",
-            borderRadius: "8px",
-            overflow: "hidden",
-            minWidth: "140px",
-            boxShadow: "0 8px 24px rgba(0,0,0,0.4)",
-          }}
+          className="absolute top-10 right-0 min-w-[140px]
+                     bg-white dark:bg-[#1a1a1a]
+                     border border-slate-200 dark:border-white/15
+                     rounded-lg overflow-hidden shadow-xl z-[9999]"
         >
           {LANGUAGES.map((l) => (
-            <div
+            <button
               key={l.code}
+              type="button"
               onClick={() => {
                 setLang(l.code);
                 setOpen(false);
               }}
-              style={{
-                padding: "10px 14px",
-                cursor: "pointer",
-                color: l.code === lang ? "#4ade80" : "#fff",
-                background:
-                  l.code === lang
-                    ? "rgba(74,222,128,0.1)"
-                    : "transparent",
-                fontSize: "14px",
-              }}
+              className={`w-full text-left px-3.5 py-2.5 text-sm transition-colors ${
+                l.code === lang
+                  ? "text-green-500 bg-green-500/10"
+                  : "text-slate-700 dark:text-white hover:bg-slate-100 dark:hover:bg-white/10"
+              }`}
             >
               {l.label}
-            </div>
+            </button>
           ))}
         </div>
       )}
